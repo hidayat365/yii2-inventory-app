@@ -1,11 +1,6 @@
 Code Factory Indonesia
 ============================
 
-Training: 
+Simple Inventory Application
 
-Membuat Aplikasi Inventory Sederhana
-
-Sabtu, 5 Desember 2015
-
-Gedung Bapel, Jl. Karet Hijau, Beji - Depok
-
+Please use this for educational purpose only
