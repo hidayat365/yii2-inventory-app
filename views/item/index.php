@@ -31,6 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'remarks',
 
             ['class' => 'yii\grid\ActionColumn'],
+            [
+               'format' => 'raw',
+                'value'=>function ($data) {
+                    return Html::a(Html::encode("Kartu Stok"),['item/status','id'=>$data->id]);
+                },
+            ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

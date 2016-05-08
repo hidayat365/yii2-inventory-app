@@ -14,6 +14,7 @@ use yii\grid\GridView;
             'item_code',
             'item_name',
             'quantity',
+            'saldo',
             'remarks',
         ],
     ]); ?>

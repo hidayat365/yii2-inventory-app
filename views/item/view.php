@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Items */
@@ -35,5 +36,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'remarks',
         ],
     ]) ?>
+
+    <h3>Stock Card</h3>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'trans_code',
+            'trans_date',
+            'item_code',
+            'item_name',
+            'quantity',
+            'saldo',
+            'remarks',
+        ],
+    ]); ?>
 
 </div>
