@@ -156,62 +156,6 @@ class ItemController extends Controller
     }
 
     /**
-     * View item transactions.
-     * @return mixed
-     */
-    public function actionStatus($id)
-    {
-        // query kartu stok
-        $sql_list = "
-            SELECT t.id AS trans_id
-            , t.trans_code AS trans_code
-            , t.trans_date AS trans_date
-            , a.id AS detail_id, a.item_id AS item_id
-            , trim(concat(t.remarks,' - ',a.remarks)) AS remarks
-            , b.code AS item_code, b.name AS item_name
-            , CASE 
-                WHEN t.type_id=1 THEN a.quantity 
-                WHEN t.type_id=2 THEN -a.quantity 
-                ELSE 0 END 
-              AS quantity
-            , @sal := @sal + CASE 
-                WHEN t.type_id=1 THEN a.quantity 
-                WHEN t.type_id=2 THEN -a.quantity 
-                ELSE 0 END 
-              AS saldo
-            FROM transactions t
-            JOIN transaction_details a ON t.id = a.trans_id
-            JOIN items b ON a.item_id = b.id
-            JOIN ( SELECT @sal:=0 ) v
-            WHERE b.id = :id
-            ORDER BY t.trans_date, t.id, a.id
-        ";
-        // query total data di kartu stok
-        $sql_count = "
-            SELECT count(*) 
-            FROM transactions t
-            JOIN transaction_details a ON t.id = a.trans_id
-            JOIN items b ON a.item_id = b.id
-            ORDER BY t.trans_date, t.id, a.id;
-        ";
-        // count data
-        $count = Yii::$app->db->createCommand($sql_count, [':id' => $id])->queryScalar();
-        // data provider untuk ditampilkan di view
-        $dataProvider = new SqlDataProvider([
-            'sql' => $sql_list,
-            'params' => [':id' => $id],
-            'totalCount' => $count,
-            'pagination' => [
-                'pageSize' => 20,
-            ],
-        ]);
-
-        return $this->render('status', [
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
      * Finds the Items model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
