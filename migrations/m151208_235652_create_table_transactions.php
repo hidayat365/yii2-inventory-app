@@ -7,24 +7,32 @@ class m151208_235652_create_table_transactions extends Migration
 {
     public function up()
     {
-        $this->createTable('transactions', [
-            'id' => Schema::TYPE_PK,
-            'trans_code' => Schema::TYPE_STRING . ' NOT NULL',
-            'trans_date' => Schema::TYPE_DATE . ' NOT NULL DEFAULT 0',
-            'type_id' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'remarks' => Schema::TYPE_STRING,
+        $this->createTable('{{%transactions}}', [
+            'id' => $this->primaryKey(),
+            'code' => $this->string(50)->notNull()->unique(),
+            'date' => $this->integer()->notNull()->defaultValue(0),
+            'type_id' => $this->integer()->notNull(),
+            'warehouse_id' => $this->integer()->notNull(),
+            'remarks' => $this->text(),
         ]);
 
         // foreign keys
         $this->addForeignKey(
             'fk_transactions_types', 
-            'transactions', 'type_id', 
-            'transaction_types', 'id', 
-            'restrict', 'cascade');
+            '{{%transactions}}', 'type_id', 
+            '{{%transaction_types}}', 'id', 
+            'restrict', 'cascade'
+        );
+        $this->addForeignKey(
+            'fk_transactions_warehouses', 
+            '{{%transactions}}', 'warehouse_id', 
+            '{{%warehouses}}', 'id', 
+            'restrict', 'cascade'
+        );
     }
 
     public function down()
     {
-        $this->dropTable('transactions');
+        $this->dropTable('{{%transactions}}');
     }
 }
