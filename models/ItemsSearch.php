@@ -2,29 +2,28 @@
 
 namespace app\models;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Items;
 
 /**
- * ItemsSearch represents the model behind the search form about `app\models\Items`.
+ * ItemsSearch represents the model behind the search form of `app\models\Items`.
  */
 class ItemsSearch extends Items
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'quantity'], 'integer'],
-            [['code', 'name', 'remarks'], 'safe'],
+            [['id', 'type_id'], 'integer'],
+            [['code', 'name', 'specification'], 'safe'],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function scenarios()
     {
@@ -60,12 +59,12 @@ class ItemsSearch extends Items
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'quantity' => $this->quantity,
+            'type_id' => $this->type_id,
         ]);
 
         $query->andFilterWhere(['like', 'code', $this->code])
             ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'remarks', $this->remarks]);
+            ->andFilterWhere(['like', 'specification', $this->specification]);
 
         return $dataProvider;
     }

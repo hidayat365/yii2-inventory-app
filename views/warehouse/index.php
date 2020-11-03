@@ -30,19 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            // 'id',
             'code',
             'name',
-            // 'location.name',
             [
                 'attribute' => 'location_id', 
                 'value' => function ($model, $index, $widget) { return isset($model->location) ? $model->location->name : null ; }, 
-                // 'filterType' => GridView::FILTER_SELECT,
                 'filter' => ArrayHelper::map(Locations::find()->asArray()->all(), 'id', 'name'), 
                 'filterInputOptions' => [ 'placeholder' => '*All*' ],
-                // 'filterWidgetOptions' => [
-                //     'pluginOptions' => [ 'allowClear' => true ],
-                // ],
                 'format' => 'raw',
                 'contentOptions' => [ 'class' => 'kv-align-middle', 'width' => '10%' ]
             ],

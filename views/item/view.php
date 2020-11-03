@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Items */
@@ -10,6 +9,7 @@ use yii\grid\GridView;
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Items'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+\yii\web\YiiAsset::register($this);
 ?>
 <div class="items-view">
 
@@ -24,32 +24,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a(Yii::t('app', 'Back to List'), ['index'], ['class' => 'btn btn-warning']) ?>
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+            'id',
             'code',
             'name',
-            'quantity',
-            'remarks',
+            [
+                'attribute' => 'location_id',
+                'value' =>  isset($model->type) ? "[{$model->type->code}] {$model->type->name}" : null,
+            ],
+            'specification:ntext',
         ],
     ]) ?>
-
-    <h3>Stock Card</h3>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'trans_code',
-            'trans_date',
-            'item_code',
-            'item_name',
-            'quantity',
-            'saldo',
-            'remarks',
-        ],
-    ]); ?>
 
 </div>
