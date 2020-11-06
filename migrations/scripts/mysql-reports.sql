@@ -22,11 +22,34 @@ JOIN warehouses w ON w.id = t.warehouse_id;
 
 --
 -- inventory stock card query
+-- only work on mysql database
 --
-SELECT *
+SELECT trans_code
+, from_unixtime(trans_date) trans_date
+, warehouse_name
+, item_name
+, quantity
 , @sal := @sal + quantity AS saldo
 FROM inventory_cards
 JOIN ( SELECT @sal:=0 ) v
 WHERE item_code = 'RM01'
 AND warehouse_code = 'IDW01'
-ORDER BY trans_date, warehouse_code, detail_id, trans_id;
+ORDER BY trans_date, trans_id;
+
+--
+-- inventory stock card query
+-- works on database which support window function
+--
+select trans_code
+, from_unixtime(trans_date) trans_date
+, warehouse_name
+, item_name
+, quantity
+, sum(quantity) over(
+    partition by warehouse_code, item_code
+    order by trans_date) saldo
+from inventory_cards ic
+where item_code = 'RM01'
+and warehouse_code = 'IDW01'
+order by trans_date, trans_id;
+
