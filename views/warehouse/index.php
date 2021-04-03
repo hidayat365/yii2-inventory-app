@@ -34,7 +34,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             [
                 'attribute' => 'location_id', 
-                'value' => function ($model, $index, $widget) { return isset($model->location) ? $model->location->name : null ; }, 
+                'value' => function ($model, $index, $widget) { 
+                    return isset($model->location) ? $model->location->name : null ; 
+                }, 
                 'filter' => ArrayHelper::map(Locations::find()->asArray()->all(), 'id', 'name'), 
                 'filterInputOptions' => [ 'placeholder' => '*All*' ],
                 'format' => 'raw',
