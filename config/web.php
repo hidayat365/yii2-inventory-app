@@ -65,6 +65,9 @@ $config = [
         'db' => require(__DIR__ . '/db.php'),
     ],
     'modules' => [
+        'finance' => [
+            'class' => 'app\modules\finance\Module',
+        ],
         'inventory' => [
             'class' => 'app\modules\inventory\Module',
         ],
