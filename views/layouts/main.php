@@ -40,6 +40,7 @@ AppAsset::register($this);
             [
                 'label' => 'Data', 
                 'url' => ['/item'],
+                'visible' => !Yii::$app->user->isGuest, 
                 'items' => [
                     ['label' => 'Lokasi', 'url' => ['/location']],
                     ['label' => 'Gudang', 'url' => ['/warehouse']],
@@ -49,6 +50,7 @@ AppAsset::register($this);
             [
                 'label' => 'Transaksi', 
                 'url' => ['/transaction'],
+                'visible' => !Yii::$app->user->isGuest, 
                 'items' => [
                     ['label' => 'Barang Masuk', 'url' => ['/transaction/in']],
                     ['label' => 'Barang Keluar', 'url' => ['/transaction/out']],

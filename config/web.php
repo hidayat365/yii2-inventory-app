@@ -64,6 +64,11 @@ $config = [
         */
         'db' => require(__DIR__ . '/db.php'),
     ],
+    'modules' => [
+        'inventory' => [
+            'class' => 'app\modules\inventory\Module',
+        ],
+    ],
     'params' => $params,
 ];
 
