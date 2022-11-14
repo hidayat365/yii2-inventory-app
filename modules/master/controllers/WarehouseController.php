@@ -1,13 +1,13 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\master\controllers;
 
+use app\modules\master\models\Warehouses;
+use app\modules\master\models\WarehousesSearch;
 use Yii;
-use app\models\Warehouses;
-use app\models\WarehousesearchSearch;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * WarehouseController implements the CRUD actions for Warehouses model.
@@ -35,7 +35,7 @@ class WarehouseController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new WarehousesearchSearch();
+        $searchModel = new WarehousesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

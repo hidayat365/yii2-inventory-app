@@ -1,8 +1,8 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\inventory\controllers;
 
-use app\models\ItemTransactions;
+use app\modules\inventory\models\ItemTransactions;
 use yii\data\ActiveDataProvider;
 
 class StatusController extends \yii\web\Controller

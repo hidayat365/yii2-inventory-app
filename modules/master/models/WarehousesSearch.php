@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 /**
  * WarehousesearchSearch represents the model behind the search form of `app\models\Warehouses`.
  */
-class WarehousesearchSearch extends Warehouses
+class WarehousesSearch extends Warehouses
 {
     /**
      * {@inheritdoc}

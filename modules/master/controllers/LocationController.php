@@ -1,13 +1,13 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\master\controllers;
 
+use app\modules\master\models\Locations;
+use app\modules\master\models\LocationsSearch;
 use Yii;
-use app\models\Locations;
-use app\models\LocationsSearch;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * LocationController implements the CRUD actions for Locations model.

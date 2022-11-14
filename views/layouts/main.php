@@ -42,9 +42,9 @@ AppAsset::register($this);
                 'url' => ['/item'],
                 'visible' => !Yii::$app->user->isGuest, 
                 'items' => [
-                    ['label' => 'Lokasi', 'url' => ['/location']],
-                    ['label' => 'Gudang', 'url' => ['/warehouse']],
-                    ['label' => 'Barang', 'url' => ['/item']],
+                    ['label' => 'Lokasi', 'url' => ['/master/location']],
+                    ['label' => 'Gudang', 'url' => ['/master/warehouse']],
+                    ['label' => 'Barang', 'url' => ['/master/item']],
                 ],
             ],
             [
@@ -52,8 +52,8 @@ AppAsset::register($this);
                 'url' => ['/transaction'],
                 'visible' => !Yii::$app->user->isGuest, 
                 'items' => [
-                    ['label' => 'Barang Masuk', 'url' => ['/transaction/in']],
-                    ['label' => 'Barang Keluar', 'url' => ['/transaction/out']],
+                    ['label' => 'Barang Masuk', 'url' => ['/inventory/item-receive']],
+                    ['label' => 'Barang Keluar', 'url' => ['/inventory/item-issue']],
                 ],
             ],
             Yii::$app->user->isGuest ?

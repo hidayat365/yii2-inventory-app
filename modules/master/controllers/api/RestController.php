@@ -6,7 +6,7 @@ use yii\rest\ActiveController;
 use yii\helpers\ArrayHelper;
 use yii\filters\Cors;
 
-class ItemRestController extends ActiveController
+class RestController extends ActiveController
 {
     // adjust the model class to match your model
     public $modelClass = 'app\models\Items';

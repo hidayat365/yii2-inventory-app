@@ -1,13 +1,13 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\shared\controllers;
 
 use app\modules\shared\models\TransactionDetails;
 use app\modules\shared\models\TransactionDetailsSearch;
+use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use Yii;
 
 /**
  * TransactionDetailController implements the CRUD actions for TransactionDetails model.

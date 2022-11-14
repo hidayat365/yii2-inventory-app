@@ -7,7 +7,7 @@ use yii\rest\ActiveController;
 /**
  * Item Controller API
  */
-class ApiItemController extends ActiveController
+class ItemController extends ActiveController
 {
     public $modelClass = 'app\models\Items';
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\master\controllers;
 
+use app\modules\master\models\Items;
+use app\modules\master\models\ItemsSearch;
 use Yii;
-use app\models\Items;
-use app\models\ItemsSearch;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * ItemController implements the CRUD actions for Items model.

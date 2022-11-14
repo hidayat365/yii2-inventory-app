@@ -1,13 +1,13 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\shared\controllers;
 
 use app\modules\shared\models\TransactionTypes;
 use app\modules\shared\models\TransactionTypesSearch;
+use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use Yii;
 
 /**
  * TransactionTypeController implements the CRUD actions for TransactionTypes model.

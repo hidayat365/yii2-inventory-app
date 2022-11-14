@@ -1,20 +1,20 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\shared\controllers;
 
 use app\models\Model;
 use app\modules\shared\models\TransactionDetails;
 use app\modules\shared\models\TransactionDetailsSearch;
 use app\modules\shared\models\Transactions;
 use app\modules\shared\models\TransactionsSearch;
+use Yii;
+use yii\db\Exception;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
-use Yii;
-use yii\db\Exception;
 
 /**
  * TransactionController implements the CRUD actions for Transactions model.
