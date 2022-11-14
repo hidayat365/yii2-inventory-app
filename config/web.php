@@ -71,6 +71,9 @@ $config = [
         'inventory' => [
             'class' => 'app\modules\inventory\Module',
         ],
+        'master' => [
+            'class' => 'app\modules\master\Module',
+        ],
     ],
     'params' => $params,
 ];
