@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\modules\master\models;
 
 /**
  * This is the ActiveQuery class for [[ItemTypes]].

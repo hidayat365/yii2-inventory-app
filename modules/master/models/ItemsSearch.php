@@ -1,15 +1,14 @@
 <?php
 
-namespace app\models;
+namespace app\modules\master\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Locations;
 
 /**
- * LocationsSearch represents the model behind the search form of `app\models\Locations`.
+ * ItemsSearch represents the model behind the search form of `app\models\Items`.
  */
-class LocationsSearch extends Locations
+class ItemsSearch extends Items
 {
     /**
      * {@inheritdoc}
@@ -17,8 +16,8 @@ class LocationsSearch extends Locations
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['code', 'name', 'address'], 'safe'],
+            [['id', 'type_id'], 'integer'],
+            [['code', 'name', 'specification'], 'safe'],
         ];
     }
 
@@ -40,7 +39,7 @@ class LocationsSearch extends Locations
      */
     public function search($params)
     {
-        $query = Locations::find();
+        $query = Items::find();
 
         // add conditions that should always apply here
 
@@ -59,11 +58,12 @@ class LocationsSearch extends Locations
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'type_id' => $this->type_id,
         ]);
 
         $query->andFilterWhere(['like', 'code', $this->code])
             ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'address', $this->address]);
+            ->andFilterWhere(['like', 'specification', $this->specification]);
 
         return $dataProvider;
     }

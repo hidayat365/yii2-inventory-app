@@ -1,7 +1,9 @@
 <?php
 
-namespace app\models;
+namespace app\modules\master\models;
 
+use app\modules\inventory\models\ItemInventories;
+use app\modules\shared\models\Transactions;
 use Yii;
 
 /**

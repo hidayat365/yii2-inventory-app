@@ -1,13 +1,13 @@
 <?php
 
-namespace app\models;
+namespace app\modules\master\models;
 
 /**
- * This is the ActiveQuery class for [[Items]].
+ * This is the ActiveQuery class for [[Warehouses]].
  *
- * @see Items
+ * @see Warehouses
  */
-class ItemsQuery extends \yii\db\ActiveQuery
+class WarehousesQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class ItemsQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Items[]|array
+     * @return Warehouses[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class ItemsQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Items|array|null
+     * @return Warehouses|array|null
      */
     public function one($db = null)
     {

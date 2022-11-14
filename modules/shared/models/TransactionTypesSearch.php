@@ -1,29 +1,29 @@
 <?php
 
-namespace app\models;
+namespace app\modules\shared\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Items;
 
 /**
- * ItemsSearch represents the model behind the search form of `app\models\Items`.
+ * TransactionTypesSearch represents the model behind the search form about `app\models\TransactionTypes`.
  */
-class ItemsSearch extends Items
+class TransactionTypesSearch extends TransactionTypes
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'type_id'], 'integer'],
-            [['code', 'name', 'specification'], 'safe'],
+            [['id'], 'integer'],
+            [['code', 'name'], 'safe'],
         ];
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function scenarios()
     {
@@ -40,9 +40,7 @@ class ItemsSearch extends Items
      */
     public function search($params)
     {
-        $query = Items::find();
-
-        // add conditions that should always apply here
+        $query = TransactionTypes::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -56,15 +54,12 @@ class ItemsSearch extends Items
             return $dataProvider;
         }
 
-        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'type_id' => $this->type_id,
         ]);
 
         $query->andFilterWhere(['like', 'code', $this->code])
-            ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'specification', $this->specification]);
+            ->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

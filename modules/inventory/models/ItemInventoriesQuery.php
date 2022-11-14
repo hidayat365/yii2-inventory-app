@@ -1,13 +1,13 @@
 <?php
 
-namespace app\models;
+namespace app\modules\inventory\models;
 
 /**
- * This is the ActiveQuery class for [[Locations]].
+ * This is the ActiveQuery class for [[ItemInventories]].
  *
- * @see Locations
+ * @see ItemInventories
  */
-class LocationsQuery extends \yii\db\ActiveQuery
+class ItemInventoriesQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class LocationsQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Locations[]|array
+     * @return ItemInventories[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class LocationsQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Locations|array|null
+     * @return ItemInventories|array|null
      */
     public function one($db = null)
     {

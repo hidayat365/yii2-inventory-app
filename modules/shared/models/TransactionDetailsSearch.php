@@ -1,16 +1,15 @@
 <?php
 
-namespace app\models;
+namespace app\modules\shared\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\TransactionTypes;
 
 /**
- * TransactionTypesSearch represents the model behind the search form about `app\models\TransactionTypes`.
+ * TransactionDetailsSearch represents the model behind the search form about `app\models\TransactionDetails`.
  */
-class TransactionTypesSearch extends TransactionTypes
+class TransactionDetailsSearch extends TransactionDetails
 {
     /**
      * @inheritdoc
@@ -18,8 +17,9 @@ class TransactionTypesSearch extends TransactionTypes
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['code', 'name'], 'safe'],
+            [['id', 'trans_id', 'item_id'], 'integer'],
+            [['quantity'], 'number'],
+            [['remarks'], 'safe'],
         ];
     }
 
@@ -41,7 +41,9 @@ class TransactionTypesSearch extends TransactionTypes
      */
     public function search($params)
     {
-        $query = TransactionTypes::find();
+        $query = TransactionDetails::find();
+
+        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -55,12 +57,15 @@ class TransactionTypesSearch extends TransactionTypes
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'trans_id' => $this->trans_id,
+            'item_id' => $this->item_id,
+            'quantity' => $this->quantity,
         ]);
 
-        $query->andFilterWhere(['like', 'code', $this->code])
-            ->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'remarks', $this->remarks]);
 
         return $dataProvider;
     }

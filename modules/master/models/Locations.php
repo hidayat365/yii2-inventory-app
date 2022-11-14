@@ -1,26 +1,27 @@
 <?php
 
-namespace app\models;
+namespace app\modules\master\models;
 
 use Yii;
 
 /**
- * This is the model class for table "item_types".
+ * This is the model class for table "locations".
  *
  * @property int $id
  * @property string $code
  * @property string $name
+ * @property string|null $address
  *
- * @property Items[] $items
+ * @property Warehouses[] $warehouses
  */
-class ItemTypes extends \yii\db\ActiveRecord
+class Locations extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'item_types';
+        return 'locations';
     }
 
     /**
@@ -30,6 +31,7 @@ class ItemTypes extends \yii\db\ActiveRecord
     {
         return [
             [['code', 'name'], 'required'],
+            [['address'], 'string'],
             [['code'], 'string', 'max' => 50],
             [['name'], 'string', 'max' => 100],
             [['code'], 'unique'],
@@ -45,25 +47,26 @@ class ItemTypes extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'code' => Yii::t('app', 'Code'),
             'name' => Yii::t('app', 'Name'),
+            'address' => Yii::t('app', 'Address'),
         ];
     }
 
     /**
-     * Gets query for [[Items]].
+     * Gets query for [[Warehouses]].
      *
-     * @return \yii\db\ActiveQuery|yii\db\ActiveQuery
+     * @return \yii\db\ActiveQuery|WarehousesQuery
      */
-    public function getItems()
+    public function getWarehouses()
     {
-        return $this->hasMany(Items::className(), ['type_id' => 'id']);
+        return $this->hasMany(Warehouses::className(), ['location_id' => 'id']);
     }
 
     /**
      * {@inheritdoc}
-     * @return ItemTypesQuery the active query used by this AR class.
+     * @return LocationsQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new ItemTypesQuery(get_called_class());
+        return new LocationsQuery(get_called_class());
     }
 }
