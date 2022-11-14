@@ -18,8 +18,18 @@
         "yiisoft/yii2": ">=2.0.5",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
-        "wbraganca/yii2-dynamicform": "*",
-        "kartik-v/yii2-widget-datepicker": "*"
+        "yiithings/yii2-dotenv": "^1.0",
+        "kartik-v/yii2-icons": "@dev",
+        "kartik-v/yii2-datecontrol": "dev-master",
+        "kartik-v/yii2-detail-view": "*",
+        "kartik-v/yii2-grid": "@dev",
+        "kartik-v/yii2-helpers": "@dev",
+        "kartik-v/yii2-number": "*",
+        "kartik-v/yii2-widgets": "@dev",
+        "kartik-v/yii2-builder": "dev-master",
+        "mdmsoft/yii2-ar-behaviors": "~1.0",
+        "mdmsoft/yii2-autonumber": "^1.5",
+        "mdmsoft/yii2-widgets": "~1.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
