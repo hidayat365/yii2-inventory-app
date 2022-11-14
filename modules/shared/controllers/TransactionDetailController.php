@@ -2,18 +2,21 @@
 
 namespace app\controllers;
 
-use Yii;
-use app\models\TransactionTypes;
-use app\models\TransactionTypesSearch;
+use app\modules\shared\models\TransactionDetails;
+use app\modules\shared\models\TransactionDetailsSearch;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use Yii;
 
 /**
- * TransactionTypeController implements the CRUD actions for TransactionTypes model.
+ * TransactionDetailController implements the CRUD actions for TransactionDetails model.
  */
-class TransactionTypeController extends Controller
+class TransactionDetailController extends Controller
 {
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
@@ -27,12 +30,12 @@ class TransactionTypeController extends Controller
     }
 
     /**
-     * Lists all TransactionTypes models.
+     * Lists all TransactionDetails models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new TransactionTypesSearch();
+        $searchModel = new TransactionDetailsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,7 +45,7 @@ class TransactionTypeController extends Controller
     }
 
     /**
-     * Displays a single TransactionTypes model.
+     * Displays a single TransactionDetails model.
      * @param integer $id
      * @return mixed
      */
@@ -54,13 +57,13 @@ class TransactionTypeController extends Controller
     }
 
     /**
-     * Creates a new TransactionTypes model.
+     * Creates a new TransactionDetails model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new TransactionTypes();
+        $model = new TransactionDetails();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -72,7 +75,7 @@ class TransactionTypeController extends Controller
     }
 
     /**
-     * Updates an existing TransactionTypes model.
+     * Updates an existing TransactionDetails model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +94,7 @@ class TransactionTypeController extends Controller
     }
 
     /**
-     * Deletes an existing TransactionTypes model.
+     * Deletes an existing TransactionDetails model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +107,15 @@ class TransactionTypeController extends Controller
     }
 
     /**
-     * Finds the TransactionTypes model based on its primary key value.
+     * Finds the TransactionDetails model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return TransactionTypes the loaded model
+     * @return TransactionDetails the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = TransactionTypes::findOne($id)) !== null) {
+        if (($model = TransactionDetails::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

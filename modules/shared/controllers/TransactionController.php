@@ -2,19 +2,19 @@
 
 namespace app\controllers;
 
-use Yii;
+use app\models\Model;
+use app\modules\shared\models\TransactionDetails;
+use app\modules\shared\models\TransactionDetailsSearch;
+use app\modules\shared\models\Transactions;
+use app\modules\shared\models\TransactionsSearch;
+use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
-use yii\filters\VerbFilter;
 use yii\widgets\ActiveForm;
-use yii\helpers\ArrayHelper;
-
-use app\models\Model;
-use app\models\Transactions;
-use app\models\TransactionsSearch;
-use app\models\TransactionDetails;
-use app\models\TransactionDetailsSearch;
+use Yii;
+use yii\db\Exception;
 
 /**
  * TransactionController implements the CRUD actions for Transactions model.
@@ -72,7 +72,7 @@ class TransactionController extends Controller
     public function actionCreate()
     {
         $model = new Transactions();
-        $details = [ new TransactionDetails ];
+        $details = [ new TransactionDetails() ];
 
         // proses isi post variable 
         if ($model->load(Yii::$app->request->post())) {
