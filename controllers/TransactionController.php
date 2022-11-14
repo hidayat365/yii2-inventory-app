@@ -2,19 +2,21 @@
 
 namespace app\controllers;
 
-use Yii;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\web\Response;
-use yii\filters\VerbFilter;
-use yii\widgets\ActiveForm;
-use yii\helpers\ArrayHelper;
-
 use app\models\Model;
 use app\models\Transactions;
 use app\models\TransactionsSearch;
 use app\models\TransactionDetails;
 use app\models\TransactionDetailsSearch;
+use app\models\TransactionsInSearch;
+use app\models\TransactionsOutSearch;
+use Yii;
+use yii\db\Exception;
+use yii\helpers\ArrayHelper;
+use yii\filters\VerbFilter;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 /**
  * TransactionController implements the CRUD actions for Transactions model.
@@ -46,6 +48,36 @@ class TransactionController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Lists all Transactions models.
+     * @return mixed
+     */
+    public function actionIn()
+    {
+        $searchModel = new TransactionsInSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index-in', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Lists all Transactions models.
+     * @return mixed
+     */
+    public function actionOut()
+    {
+        $searchModel = new TransactionsOutSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index-out', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

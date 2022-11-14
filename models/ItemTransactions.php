@@ -47,11 +47,11 @@ class ItemTransactions extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'trans_id' => 'Trans ID',
-            'trans_code' => 'Trans Code',
-            'trans_date' => 'Trans Date',
-            'detail_id' => 'Detail ID',
-            'item_id' => 'Item ID',
+            'trans_id' => 'Transaction',
+            'trans_code' => 'Transaction Code',
+            'trans_date' => 'Transaction Date',
+            'detail_id' => 'Detail',
+            'item_id' => 'Item',
             'quantity' => 'Quantity',
             'remarks' => 'Remarks',
             'item_code' => 'Item Code',

@@ -46,7 +46,7 @@ class TransactionDetails extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'trans_id' => 'Trans ID',
+            'trans_id' => 'Transaction',
             'item_id' => 'Item',
             'quantity' => 'Quantity',
             'remarks' => 'Remarks',

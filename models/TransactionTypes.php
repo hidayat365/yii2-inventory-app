@@ -40,7 +40,7 @@ class TransactionTypes extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'Type ID',
+            'id' => 'Type',
             'code' => 'Type Code',
             'name' => 'Type Name',
         ];

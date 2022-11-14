@@ -10,7 +10,7 @@ use app\models\Transactions;
 /**
  * TransactionsSearch represents the model behind the search form about `app\models\Transactions`.
  */
-class TransactionsSearch extends Transactions
+class TransactionsOutSearch extends Transactions
 {
     /**
      * @inheritdoc
@@ -62,7 +62,7 @@ class TransactionsSearch extends Transactions
             'id' => $this->id,
             'trans_date' => $this->trans_date,
             'warehouse_id' => $this->warehouse_id,
-            'type_id' => $this->type_id,
+            'type_id' => TransactionTypes::findOne(['code' => 'OUT'])->id,
         ]);
 
         $query->andFilterWhere(['like', 'trans_code', $this->trans_code])

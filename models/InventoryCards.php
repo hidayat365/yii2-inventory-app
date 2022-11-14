@@ -52,11 +52,11 @@ class InventoryCards extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'trans_id' => Yii::t('app', 'Trans ID'),
-            'trans_code' => Yii::t('app', 'Trans Code'),
-            'trans_date' => Yii::t('app', 'Trans Date'),
-            'detail_id' => Yii::t('app', 'Detail ID'),
-            'item_id' => Yii::t('app', 'Item ID'),
+            'trans_id' => Yii::t('app', 'Transaction'),
+            'trans_code' => Yii::t('app', 'Transaction Code'),
+            'trans_date' => Yii::t('app', 'Transaction Date'),
+            'detail_id' => Yii::t('app', 'Detail'),
+            'item_id' => Yii::t('app', 'Item'),
             'warehouse_code' => Yii::t('app', 'Warehouse Code'),
             'warehouse_name' => Yii::t('app', 'Warehouse Name'),
             'item_code' => Yii::t('app', 'Item Code'),

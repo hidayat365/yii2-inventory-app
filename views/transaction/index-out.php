@@ -11,11 +11,11 @@ use yii\widgets\Pjax;
 /* @var $searchModel app\models\TransactionsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Transactions');
+$this->title = Yii::t('app', 'Transactions Out');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Transactions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-// ambil list jenis transaksi untuk filtering
-$typeList = ArrayHelper::map(TransactionTypes::find()->asArray()->all(), 'id', 'name');
+// ambil list untuk filtering
 $warehouseList = ArrayHelper::map(Warehouses::find()->asArray()->all(), 'id', 'name');
 
 ?>
@@ -35,11 +35,6 @@ $warehouseList = ArrayHelper::map(Warehouses::find()->asArray()->all(), 'id', 'n
             ['class' => 'yii\grid\SerialColumn'],
             'trans_code',
             'trans_date',
-            [   'attribute' => 'type_id', 
-                'filter' => $typeList, 
-                'label' => 'Transaction Type', 
-                'value' => function ($model, $index, $widget) { return $model->type->name; }
-            ],
             [   'attribute' => 'warehouse_id', 
                 'filter' => $warehouseList, 
                 'value' => function ($model, $index, $widget) { return $model->warehouse->name; }
