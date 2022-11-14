@@ -13,7 +13,7 @@ rem -------------------------------------------------------------
 
 set YII_PATH=%~dp0
 
-if "%PHP_COMMAND%" == "" set PHP_COMMAND=C:\laragon\bin\php\php-7.4.15-Win32-vc15-x64\php.exe
+if "%PHP_COMMAND%" == "" set PHP_COMMAND=php.exe
 
 "%PHP_COMMAND%" "%YII_PATH%yii" %*
 
