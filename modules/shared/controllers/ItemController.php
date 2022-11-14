@@ -1,9 +1,9 @@
 <?php
 
-namespace app\modules\master\controllers;
+namespace app\modules\shared\controllers;
 
-use app\modules\master\models\Items;
-use app\modules\master\models\ItemsSearch;
+use app\modules\shared\models\Items;
+use app\modules\shared\models\ItemsSearch;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;

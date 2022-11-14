@@ -1,13 +1,13 @@
 <?php
 
-namespace app\modules\master\models;
+namespace app\modules\shared\models;
 
 /**
- * This is the ActiveQuery class for [[ItemTypes]].
+ * This is the ActiveQuery class for [[Items]].
  *
- * @see ItemTypes
+ * @see Items
  */
-class ItemTypesQuery extends \yii\db\ActiveQuery
+class ItemsQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class ItemTypesQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return ItemTypes[]|array
+     * @return Items[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class ItemTypesQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return ItemTypes|array|null
+     * @return Items|array|null
      */
     public function one($db = null)
     {

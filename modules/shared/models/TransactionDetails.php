@@ -2,7 +2,6 @@
 
 namespace app\modules\shared\models;
 
-use app\modules\master\models\Items;
 use Yii;
 
 /**

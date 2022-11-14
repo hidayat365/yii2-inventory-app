@@ -1,9 +1,9 @@
 <?php
 
-use app\modules\master\models\ItemTypes;
+use app\modules\shared\models\ItemTypes;
+use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\grid\GridView;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */

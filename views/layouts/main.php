@@ -44,7 +44,7 @@ AppAsset::register($this);
                 'items' => [
                     ['label' => 'Lokasi', 'url' => ['/master/location']],
                     ['label' => 'Gudang', 'url' => ['/master/warehouse']],
-                    ['label' => 'Barang', 'url' => ['/master/item']],
+                    ['label' => 'Barang', 'url' => ['/shared/item']],
                 ],
             ],
             [

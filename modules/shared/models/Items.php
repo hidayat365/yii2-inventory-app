@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\master\models;
+namespace app\modules\shared\models;
 
 use app\modules\inventory\models\ItemInventories;
 use app\modules\shared\models\TransactionDetails;

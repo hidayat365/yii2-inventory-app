@@ -1,6 +1,6 @@
 <?php
 
-use app\modules\master\models\ItemTypes;
+use app\modules\shared\models\ItemTypes;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;

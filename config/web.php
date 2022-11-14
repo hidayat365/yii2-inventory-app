@@ -74,6 +74,9 @@ $config = [
         'master' => [
             'class' => 'app\modules\master\Module',
         ],
+        'shared' => [
+            'class' => 'app\modules\shared\Module',
+        ],
     ],
     'params' => $params,
 ];
