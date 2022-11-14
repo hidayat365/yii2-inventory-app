@@ -1,9 +1,9 @@
 <?php
 
+use app\modules\master\models\ItemTypes;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\models\ItemTypes;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Items */

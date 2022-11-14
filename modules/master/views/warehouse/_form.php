@@ -1,9 +1,9 @@
 <?php
 
+use app\modules\master\models\Locations;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\models\Locations;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Warehouses */

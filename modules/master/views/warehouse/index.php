@@ -1,10 +1,10 @@
 <?php
 
+use app\modules\master\models\Locations;
+use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\grid\GridView;
 use yii\widgets\Pjax;
-use app\models\Locations;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\WarehousesearchSearch */
