@@ -290,6 +290,9 @@ class TransactionController extends Controller
             );
         }
 
+        // convert date string to timestamp
+        $model->trans_date = strtotime($model->trans_date);
+
         // validate all models
         $valid1 = $model->validate();
         $valid2 = Model::validateMultiple($details);
@@ -331,7 +334,8 @@ class TransactionController extends Controller
             return $this->render('create', [
                 'model' => $model,
                 'details' => $details,
-                'error' => 'valid1: '.print_r($valid1,true).' - valid2: '.print_r($valid2,true),
+                // 'error' => 'valid1: '.print_r($valid1,true).' - valid2: '.print_r($valid2,true),
+                'error' => print_r($model->errors, true)
             ]);
         }
     }
@@ -347,6 +351,9 @@ class TransactionController extends Controller
         foreach ($details as $detail) {
             $detail->trans_id = $model->id;
         }
+
+        // convert date string to timestamp
+        $model->trans_date = strtotime($model->trans_date);
 
         // ajax validation
         if (Yii::$app->request->isAjax) {
