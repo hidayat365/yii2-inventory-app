@@ -26,6 +26,8 @@ $warehouseList = ArrayHelper::map(Warehouses::find()->asArray()->all(), 'id', 'n
 
     <p>
         <?= Html::a(Yii::t('app', 'Create Transactions'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Transactions In'), ['create-in'], ['class' => 'btn btn-info']) ?>
+        <?= Html::a(Yii::t('app', 'Create Transactions Out'), ['create-out'], ['class' => 'btn btn-primary']) ?>
     </p>
 <?php Pjax::begin(); ?>
     <?= GridView::widget([
