@@ -9,6 +9,7 @@ use app\models\TransactionDetails;
 use app\models\TransactionDetailsSearch;
 use app\models\TransactionsInSearch;
 use app\models\TransactionsOutSearch;
+use app\models\TransactionTypes;
 use Yii;
 use yii\db\Exception;
 use yii\helpers\ArrayHelper;
@@ -108,74 +109,65 @@ class TransactionController extends Controller
 
         // proses isi post variable 
         if ($model->load(Yii::$app->request->post())) {
-            $details = Model::createMultiple(TransactionDetails::classname());
-            Model::loadMultiple($details, Yii::$app->request->post());
-
-            // assign default transaction_id
-            foreach ($details as $detail) {
-                $detail->trans_id = 0;
-            }
-
-            // ajax validation
-            if (Yii::$app->request->isAjax) {
-                Yii::$app->response->format = Response::FORMAT_JSON;
-                return ArrayHelper::merge(
-                    ActiveForm::validateMultiple($details),
-                    ActiveForm::validate($model)
-                );
-            }
-
-            // validate all models
-            $valid1 = $model->validate();
-            $valid2 = Model::validateMultiple($details);
-            $valid = $valid1 && $valid2;
-
-            // jika valid, mulai proses penyimpanan
-            if ($valid) {
-                // mulai database transaction
-                $transaction = \Yii::$app->db->beginTransaction();
-                try {
-                    // simpan master record                   
-                    if ($flag = $model->save(false)) {
-                        // simpan details record
-                        foreach ($details as $detail) {
-                            $detail->trans_id = $model->id;
-                            if (! ($flag = $detail->save(false))) {
-                                $transaction->rollBack();
-                                break;
-                            }
-                        }
-                    }
-                    if ($flag) {
-                        // sukses, commit database transaction
-                        // kemudian tampilkan hasilnya
-                        $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id]);
-                    } else {
-                        return $this->render('create', [
-                            'model' => $model,
-                            'details' => $details,
-                        ]);
-                    }
-                } catch (Exception $e) {
-                    // penyimpanan galga, rollback database transaction
-                    $transaction->rollBack();
-                    throw $e;
-                }
-            } else {
-                return $this->render('create', [
-                    'model' => $model,
-                    'details' => $details,
-                    'error' => 'valid1: '.print_r($valid1,true).' - valid2: '.print_r($valid2,true),
-                ]);
-            }
-
+            $this->helperCreate($model);
         } else {
             // inisialisai id 
             // diperlukan untuk form master-detail
             $model->id = 0;
             // render view
             return $this->render('create', [
+                'model' => $model,
+                'details' => $details,
+            ]);
+        }
+    }
+
+    /**
+     * Creates a new Transactions In.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreateIn() 
+    {
+        $model = new Transactions();
+        $details = [ new TransactionDetails ];
+
+        // proses isi post variable 
+        if ($model->load(Yii::$app->request->post())) {
+            return $this->helperCreate($model);
+        } else {
+            // inisialisai id 
+            // diperlukan untuk form master-detail
+            $model->id = 0;
+            $model->type_id = TransactionTypes::findOne(['code' => 'IN'])->id;
+            // render view
+            return $this->render('create-in', [
+                'model' => $model,
+                'details' => $details,
+            ]);
+        }
+    }
+
+    /**
+     * Creates a new Transactions In.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreateOut() 
+    {
+        $model = new Transactions();
+        $details = [ new TransactionDetails ];
+
+        // proses isi post variable 
+        if ($model->load(Yii::$app->request->post())) {
+            return $this->helperCreate($model);
+        } else {
+            // inisialisai id 
+            // diperlukan untuk form master-detail
+            $model->id = 0;
+            $model->type_id = TransactionTypes::findOne(['code' => 'IN'])->id;
+            // render view
+            return $this->render('create-out', [
                 'model' => $model,
                 'details' => $details,
             ]);
@@ -194,73 +186,55 @@ class TransactionController extends Controller
         $details = $model->transactionDetails;
 
         if ($model->load(Yii::$app->request->post())) {
-
-            $oldIDs = ArrayHelper::map($details, 'id', 'id');
-            $details = Model::createMultiple(TransactionDetails::classname(), $details);
-            Model::loadMultiple($details, Yii::$app->request->post());
-            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($details, 'id', 'id')));
-
-            // assign default transaction_id
-            foreach ($details as $detail) {
-                $detail->trans_id = $model->id;
-            }
-
-            // ajax validation
-            if (Yii::$app->request->isAjax) {
-                Yii::$app->response->format = Response::FORMAT_JSON;
-                return ArrayHelper::merge(
-                    ActiveForm::validateMultiple($details),
-                    ActiveForm::validate($model)
-                );
-            }
-
-            // validate all models
-            $valid1 = $model->validate();
-            $valid2 = Model::validateMultiple($details);
-            $valid = $valid1 && $valid2;
-
-            // jika valid, mulai proses penyimpanan
-            if ($valid) {
-                // mulai database transaction
-                $transaction = \Yii::$app->db->beginTransaction();
-                try {
-                    // simpan master record                   
-                    if ($flag = $model->save(false)) {
-                        // delete dahulu semua record yang ada
-                        if (! empty($deletedIDs)) {
-                            TransactionDetails::deleteAll(['id' => $deletedIDs]);
-                        }
-                        // simpan details record
-                        foreach ($details as $detail) {
-                            $detail->trans_id = $model->id;
-                            if (! ($flag = $detail->save(false))) {
-                                $transaction->rollBack();
-                                break;
-                            }
-                        }
-                    }
-                    if ($flag) {
-                        // sukses, commit database transaction
-                        // kemudian tampilkan hasilnya
-                        $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id]);
-                    }
-                } catch (Exception $e) {
-                    // penyimpanan galga, rollback database transaction
-                    $transaction->rollBack();
-                    throw $e;
-                }
-            } else {
-                return $this->render('create', [
-                    'model' => $model,
-                    'details' => $details,
-                    'error' => 'valid1: '.print_r($valid1,true).' - valid2: '.print_r($valid2,true),
-                ]);
-            }
+            return $this->helperUpdate($model, $details);
         }
 
         // render view
         return $this->render('update', [
+            'model' => $model,
+            'details' => (empty($details)) ? [new TransactionDetails] : $details
+        ]);
+    }
+
+    /**
+     * Updates an existing Transactions model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionUpdateIn($id)
+    {
+        $model = $this->findModel($id);
+        $details = $model->transactionDetails;
+
+        if ($model->load(Yii::$app->request->post())) {
+            return $this->helperUpdate($model, $details);
+        }
+
+        // render view
+        return $this->render('update-in', [
+            'model' => $model,
+            'details' => (empty($details)) ? [new TransactionDetails] : $details
+        ]);
+    }
+
+    /**
+     * Updates an existing Transactions model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionUpdateOut($id)
+    {
+        $model = $this->findModel($id);
+        $details = $model->transactionDetails;
+
+        if ($model->load(Yii::$app->request->post())) {
+            return $this->helperUpdate($model, $details);
+        }
+
+        // render view
+        return $this->render('update=out', [
             'model' => $model,
             'details' => (empty($details)) ? [new TransactionDetails] : $details
         ]);
@@ -295,6 +269,137 @@ class TransactionController extends Controller
         }
 
         return $this->redirect(['index']);
+    }
+
+    private function helperCreate($model)
+    {
+        $details = Model::createMultiple(TransactionDetails::classname());
+        Model::loadMultiple($details, Yii::$app->request->post());
+
+        // assign default transaction_id
+        foreach ($details as $detail) {
+            $detail->trans_id = 0;
+        }
+
+        // ajax validation
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ArrayHelper::merge(
+                ActiveForm::validateMultiple($details),
+                ActiveForm::validate($model)
+            );
+        }
+
+        // validate all models
+        $valid1 = $model->validate();
+        $valid2 = Model::validateMultiple($details);
+        $valid = $valid1 && $valid2;
+
+        // jika valid, mulai proses penyimpanan
+        if ($valid) {
+            // mulai database transaction
+            $transaction = \Yii::$app->db->beginTransaction();
+            try {
+                // simpan master record                   
+                if ($flag = $model->save(false)) {
+                    // simpan details record
+                    foreach ($details as $detail) {
+                        $detail->trans_id = $model->id;
+                        if (! ($flag = $detail->save(false))) {
+                            $transaction->rollBack();
+                            break;
+                        }
+                    }
+                }
+                if ($flag) {
+                    // sukses, commit database transaction
+                    // kemudian tampilkan hasilnya
+                    $transaction->commit();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    return $this->render('create', [
+                        'model' => $model,
+                        'details' => $details,
+                    ]);
+                }
+            } catch (Exception $e) {
+                // penyimpanan galga, rollback database transaction
+                $transaction->rollBack();
+                throw $e;
+            }
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+                'details' => $details,
+                'error' => 'valid1: '.print_r($valid1,true).' - valid2: '.print_r($valid2,true),
+            ]);
+        }
+    }
+
+    private function helperUpdate($model, $details)
+    {
+        $oldIDs = ArrayHelper::map($details, 'id', 'id');
+        $details = Model::createMultiple(TransactionDetails::classname(), $details);
+        Model::loadMultiple($details, Yii::$app->request->post());
+        $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($details, 'id', 'id')));
+
+        // assign default transaction_id
+        foreach ($details as $detail) {
+            $detail->trans_id = $model->id;
+        }
+
+        // ajax validation
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ArrayHelper::merge(
+                ActiveForm::validateMultiple($details),
+                ActiveForm::validate($model)
+            );
+        }
+
+        // validate all models
+        $valid1 = $model->validate();
+        $valid2 = Model::validateMultiple($details);
+        $valid = $valid1 && $valid2;
+
+        // jika valid, mulai proses penyimpanan
+        if ($valid) {
+            // mulai database transaction
+            $transaction = \Yii::$app->db->beginTransaction();
+            try {
+                // simpan master record                   
+                if ($flag = $model->save(false)) {
+                    // delete dahulu semua record yang ada
+                    if (! empty($deletedIDs)) {
+                        TransactionDetails::deleteAll(['id' => $deletedIDs]);
+                    }
+                    // simpan details record
+                    foreach ($details as $detail) {
+                        $detail->trans_id = $model->id;
+                        if (! ($flag = $detail->save(false))) {
+                            $transaction->rollBack();
+                            break;
+                        }
+                    }
+                }
+                if ($flag) {
+                    // sukses, commit database transaction
+                    // kemudian tampilkan hasilnya
+                    $transaction->commit();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            } catch (Exception $e) {
+                // penyimpanan galga, rollback database transaction
+                $transaction->rollBack();
+                throw $e;
+            }
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+                'details' => $details,
+                'error' => 'valid1: '.print_r($valid1,true).' - valid2: '.print_r($valid2,true),
+            ]);
+        }
     }
 
     /**

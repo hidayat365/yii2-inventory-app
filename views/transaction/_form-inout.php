@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 
 use app\models\Items;
 use app\models\TransactionTypes;
-
+use app\models\Warehouses;
 use wbraganca\dynamicform\DynamicFormWidget;
 use kartik\date\DatePicker;
 
@@ -21,10 +21,10 @@ use kartik\date\DatePicker;
     <?= $form->field($model, 'type_id')->hiddenInput()->label(false); ?>
 
     <div class="row">
-        <div class="col-sm-4 col-md-6">
+        <div class="col-sm-6 col-md-6">
 		    <?= $form->field($model, 'trans_code')->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="col-sm-4 col-md-3">
+        <div class="col-sm-3 col-md-3">
 		    <?php 
 				echo '<label class="control-label" for="transactions-trans_date">Transaction Date</label>';
 				echo DatePicker::widget([
@@ -38,6 +38,12 @@ use kartik\date\DatePicker;
 				    ]
 				]);
 		    ?>
+        </div>
+        <div class="col-sm-3 col-md-3">
+		    <?= $form->field($model, 'warehouse_id')->dropDownList(
+		        ArrayHelper::map(Warehouses::find()->all(), 'id', 'name'),  // Flat array ('id'=>'label')
+		        ['prompt'=>'* Pilih Gudang *']                          // options
+		    ); ?>
         </div>
         <div class="col-sm-12 col-md-12">
 		    <?= $form->field($model, 'remarks')->textInput(['maxlength' => true]) ?>
